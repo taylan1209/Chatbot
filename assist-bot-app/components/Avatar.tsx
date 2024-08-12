@@ -1,4 +1,3 @@
-import { constants } from 'fs/promises';
 import Image from 'next/image';
 import React from 'react';
 import { createAvatar } from '@dicebear/core';
