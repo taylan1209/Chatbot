@@ -5,14 +5,14 @@ import { SignedIn, SignedOut,SignInButton, UserButton } from '@clerk/nextjs'
 
 function Header() {
   return (
-    <header className='b-white shadow-sm text-gray-800 flex'>
+    <header className='b-white shadow-sm text-gray-800 flex justify-between p-5'>
         <Link href ="/" className='flex items-center text-4xl font-thin'>
         <Avatar seed='Chatbot'/>
 
-        <div className='space-y-1'>
-        <h1>Tanıtma ChatBot</h1>
-        <h2 className='text-sm'>Admin Paneli</h2>
-            </div>
+         <div className='space-y-1'>
+            <h1 >Tanıtma ChatBot</h1>
+            <h2 className='text-sm'>Admin Paneli</h2>
+         </div>
         </Link>
 
         <div className='flex items-center'>
