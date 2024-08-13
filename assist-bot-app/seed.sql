@@ -70,3 +70,42 @@ CREATE TRIGGER set_chatbot_characteristics_created_at
 BEFORE INSERT ON chatbot_characteristics
 FOR EACH ROW
 EXECUTE FUNCTION set_created_at(); 
+
+CREATE TRIGGER set_guests_created_at
+BEFORE INSERT ON guests
+FOR EACH ROW
+EXECUTE FUNCTION set_created_at();
+
+CREATE TRIGGER set_chat_sessions_created_at
+BEFORE INSERT ON chat_sessions
+FOR EACH ROW
+EXECUTE FUNCTION set_created_at();
+
+CREATE TRIGGER set_messages_created_at
+BEFORE INSERT ON messages
+FOR EACH ROW
+EXECUTE FUNCTION set_created_at();
+
+-- --------------------------------
+-- Insert sample data
+INSERT INTO chatbots (clerk-user-id, name) VALUES ('user_123', 'My First Chatbot');
+
+-- Insert sample data for chatbot_characteristics
+INSERT INTO chatbot_characteristics (chatbot_id, content) VALUES 
+(1, 'You are a nice chatbot have a good time!'); 
+chatbot_characteristics (chatbot_id, content) VALUES (1, 'You are a helpful assistant.');
+
+-- Insert sample data for guests
+INSERT INTO guests (name, email) VALUES
+('John Doe', 'john@example.com'),
+('Jane Smith', 'jane@example.com');
+
+-- Insert sample data for chat_sessions
+INSERT INTO chat_sessions (chat_id, guest_id) VALUES
+(1, 1),
+(1, 2);
+
+-- Insert sample data for messages
+INSERT INTO messages (chat_session_id, content, sender) VALUES
+(1, 'Hello, how are you?', 'User'),
+(1, 'I am doing great, thanks for asking!', 'ai'),
