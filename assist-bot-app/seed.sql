@@ -1,7 +1,7 @@
 --Create the chatbots table
 CREATE TABLE chatbots (
   id SERIAL PRIMARY KEY,
-  clerk-user-id VARCHAR(255) NOT NULL,--Clerks user ID
+  clerk_user_id VARCHAR(255) NOT NULL,--Clerks user ID
   name VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
