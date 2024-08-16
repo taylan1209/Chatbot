@@ -53,7 +53,7 @@ function CreateChatbot() {
                 placeholder='Chatbot Name..'
                 className='max-w-lg' 
                 required/>
-                <Button>Create Chatbot</Button>
+                <Button type='submit' disabled = {loading || !name}>{loading ? "Creating Chatbot..." : "Create Chatbot"}</Button>
             </form>
         </div>
     </div>
