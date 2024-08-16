@@ -17,10 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <ApolloProviderWrapper>
-
     <ClerkProvider>
     <html lang="en">
-      <body className="min-h-screen flex">{children}
+      <body className="min-h-screen flex">
+        {children}
       {/* {Toaster} */}
       </body>
     </html>
