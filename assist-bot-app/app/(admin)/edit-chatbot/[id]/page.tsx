@@ -1,6 +1,7 @@
 'use client'
 
 
+import Avatar from "@/components/Avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/graphql/apolloClient";
@@ -12,6 +13,7 @@ import { toast } from "sonner";
 
 function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [url, setUrl] = useState<string>('');
+  const [chatbotName, setChatbotName] = useState<string>('');
 
   useEffect(() => {
     const url = `${BASE_URL}/chatbot/${id}`;
@@ -44,6 +46,17 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
         </Button>
       </div>
       </div>
+      <section className="relartive mt-5 bg-white p-5 md:p-10 rounded-lg">
+        <Button variant='destructive' 
+        className="absolute-top-2 h-8 w-2"
+        //onClick ={()=> handleDelete(id)}
+        >
+          X
+          </Button>
+        <div>
+          <Avatar seed={chatbotName} />
+        </div>
+      </section>
     </div>
     );
 }
