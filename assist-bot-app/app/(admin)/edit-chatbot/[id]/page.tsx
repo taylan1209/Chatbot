@@ -1,11 +1,14 @@
 'use client'
 
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/graphql/apolloClient";
+import { Copy } from "lucide-react";
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [url, setUrl] = useState<string>('');
@@ -24,11 +27,21 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
       <p className='text-sm italic text-white'> Share this link with 
       your customers to start conservations with your chatbot
       </p>
-      <div>
+      <div className="flex items-center space-x-2">
         <Link href={url} className="w-full cursor-pointer 
         hover:opacity-50">
           <Input value={url} readOnly className="cursor-pointer" />
         </Link>
+        <Button size='sm'
+        className="px-3"
+        onClick={()=>{
+          navigator.clipboard.writeText(url);
+          toast.success("Copied to Clipboard");
+        }}
+        >
+        <span className="sr-only">Copy</span>   
+        <Copy className="h-4 w-4" />
+        </Button>
       </div>
       </div>
     </div>
