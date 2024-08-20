@@ -10,16 +10,22 @@ import { useQuery } from "@apollo/client";
 import { Copy } from "lucide-react";
 import Link from "next/link";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [url, setUrl] = useState<string>('');
   const [chatbotName, setChatbotName] = useState<string>('');
 
-  const {} = useQuery<GetChatbotByIdResponse, GetChatbotByIdVariables>(
+  const {data, loading, error} = useQuery<GetChatbotByIdResponse, GetChatbotByIdVariables>(
     GET_CHATBOT_BY_ID, {variables:{id} },
   );
+
+  useEffect(() => {
+    if (data) {
+      setChatbotName(data.chatbots.name);
+    }
+  }, [data]);
 
   useEffect(() => {
     const url = `${BASE_URL}/chatbot/${id}`;
@@ -61,6 +67,16 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
           </Button>
         <div>
           <Avatar seed={chatbotName} />
+          <form>
+            <Input 
+            value={chatbotName}
+            onChange={(e)=> setChatbotName(e.target.value)} 
+            placeholder={chatbotName}
+            className="w-full border-none bg-transparent text-xl font-bold"
+            required
+            />
+            <Button type="submit" disabled={!chatbotName}>Update</Button>
+          </form>
         </div>
       </section>
     </div>
