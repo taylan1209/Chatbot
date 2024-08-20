@@ -5,6 +5,8 @@ import Avatar from "@/components/Avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/graphql/apolloClient";
+import { GetChatbotByIdResponse, GetChatbotByIdVariables, GetChatbotByIdVariablles } from "@/types/types";
+import { useQuery } from "@apollo/client";
 import { Copy } from "lucide-react";
 import Link from "next/link";
 
@@ -14,6 +16,10 @@ import { toast } from "sonner";
 function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [url, setUrl] = useState<string>('');
   const [chatbotName, setChatbotName] = useState<string>('');
+
+  const {} = useQuery<GetChatbotByIdResponse, GetChatbotByIdVariables>(
+    GET_CHATBOT_BY_ID, {variables:{id} },
+  );
 
   useEffect(() => {
     const url = `${BASE_URL}/chatbot/${id}`;
