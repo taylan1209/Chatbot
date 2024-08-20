@@ -65,9 +65,9 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
         >
           X
           </Button>
-        <div>
+        <div className="flex space-x-4">
           <Avatar seed={chatbotName} />
-          <form>
+          <form onSubmit={handleUpdateChatbot}>
             <Input 
             value={chatbotName}
             onChange={(e)=> setChatbotName(e.target.value)} 
@@ -78,6 +78,19 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
             <Button type="submit" disabled={!chatbotName}>Update</Button>
           </form>
         </div>
+        <h2 className="text-xl font-bold mt-10">
+          Your chatbot is equipped with the following informations</h2>
+      <div>
+        <form >
+         <Input type="text"
+         placeholder="Example: If user asks for .."
+         value= {newCharacteristic}
+         onChange = {(e)=> setNewCharacteristic(e.target.value)}>
+         
+         </Input>
+        </form>
+      </div>
+      
       </section>
     </div>
     );
