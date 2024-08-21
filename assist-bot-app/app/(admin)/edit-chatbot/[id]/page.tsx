@@ -6,6 +6,7 @@ import Characteristic from "@/components/Characteristic";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/graphql/apolloClient";
+import { GET_CHATBOT_BY_ID } from "@/graphql/queries/queries";
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "@/types/types";
 import { useQuery } from "@apollo/client";
 import { Copy } from "lucide-react";
