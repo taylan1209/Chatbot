@@ -2,10 +2,11 @@
 
 
 import Avatar from "@/components/Avatar";
+import Characteristic from "@/components/Characteristic";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/graphql/apolloClient";
-import { GetChatbotByIdResponse, GetChatbotByIdVariables, GetChatbotByIdVariablles } from "@/types/types";
+import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "@/types/types";
 import { useQuery } from "@apollo/client";
 import { Copy } from "lucide-react";
 import Link from "next/link";
@@ -90,21 +91,14 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
          onChange = {(e)=> setNewCharacteristic(e.target.value)} />
         </form>
 
-        <ul>
+        <ul className="flex flex-wrap-reverse gap-5">
           {
             data?.chatbots.chatbot_characteristics.map((characteristic) =>
                (
-              <li key={characteristic.id} className="flex justify-between">
-                <p>
-                {characteristic.content}
-                </p>
-                <Button variant='destructive'
-                className="px-3"
-                //onClick={()=> handleDeleteCharacteristic(characteristic.id)}
-                 >
-                  X
-                  </Button>
-               </li>
+             <Characteristic 
+             key={characteristic.id} 
+             characteristic={characteristic}
+             />
             ))
           }
         </ul>
