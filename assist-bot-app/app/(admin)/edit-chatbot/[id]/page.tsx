@@ -16,6 +16,7 @@ import { toast } from "sonner";
 function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [url, setUrl] = useState<string>('');
   const [chatbotName, setChatbotName] = useState<string>('');
+  const [newCharacteristic, setNewCharacteristic] = useState<string>('');
 
   const {data, loading, error} = useQuery<GetChatbotByIdResponse, GetChatbotByIdVariables>(
     GET_CHATBOT_BY_ID, {variables:{id} },
@@ -80,7 +81,7 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
         </div>
         <h2 className="text-xl font-bold mt-10">
           Your chatbot is equipped with the following informations</h2>
-      <div>
+      <div onSubmit={}>
         <form >
          <Input 
          type="text"
@@ -88,6 +89,25 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
          value= {newCharacteristic}
          onChange = {(e)=> setNewCharacteristic(e.target.value)} />
         </form>
+
+        <ul>
+          {
+            data?.chatbots.chatbot_characteristics.map((characteristic) =>
+               (
+              <li key={characteristic.id} className="flex justify-between">
+                <p>
+                {characteristic.content}
+                </p>
+                <Button variant='destructive'
+                className="px-3"
+                //onClick={()=> handleDeleteCharacteristic(characteristic.id)}
+                 >
+                  X
+                  </Button>
+               </li>
+            ))
+          }
+        </ul>
       </div>
       
       </section>
