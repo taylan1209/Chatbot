@@ -82,12 +82,11 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
           Your chatbot is equipped with the following informations</h2>
       <div>
         <form >
-         <Input type="text"
+         <Input 
+         type="text"
          placeholder="Example: If user asks for .."
          value= {newCharacteristic}
-         onChange = {(e)=> setNewCharacteristic(e.target.value)}>
-         
-         </Input>
+         onChange = {(e)=> setNewCharacteristic(e.target.value)} />
         </form>
       </div>
       
