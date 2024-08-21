@@ -10,6 +10,7 @@ import { GET_CHATBOT_BY_ID } from "@/graphql/queries/queries";
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "@/types/types";
 import { useMutation, useQuery } from "@apollo/client";
 import { Copy } from "lucide-react";
+import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
 
 import { use, useEffect, useState } from "react";
@@ -68,7 +69,10 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
         <Avatar seed="loading" />
         <p>Loading...</p>
       </div>
-    ); return <p>Loading...</p>;
+    ); 
+
+    if (error) return <p>Error: {error.message}</p>;
+    if (!data?.chatbots) return redirect("/view-chatbots")
 
     return (
       <div className='px-0 md:p-10'>
