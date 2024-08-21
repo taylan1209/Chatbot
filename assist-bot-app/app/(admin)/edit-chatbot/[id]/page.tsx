@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/graphql/apolloClient";
 import { GET_CHATBOT_BY_ID } from "@/graphql/queries/queries";
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "@/types/types";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Copy } from "lucide-react";
 import Link from "next/link";
 
@@ -20,8 +20,17 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [chatbotName, setChatbotName] = useState<string>('');
   const [newCharacteristic, setNewCharacteristic] = useState<string>('');
 
-  const {data, loading, error} = useQuery<GetChatbotByIdResponse, GetChatbotByIdVariables>(
-    GET_CHATBOT_BY_ID, {variables:{id} },
+  const[deleteChatbot] = useMutation(DELETE_CHATBOT, {
+    refetchQueries: ["GetChatbotById"],
+    //deleting
+    awaitRefetchQueries: true,
+  });
+
+
+  const {data, loading, error} = useQuery<
+  GetChatbotByIdResponse, 
+  GetChatbotByIdVariables
+  >(GET_CHATBOT_BY_ID, {variables:{id} },
   );
 
   useEffect(() => {
@@ -34,7 +43,32 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
     const url = `${BASE_URL}/chatbot/${id}`;
 
     setUrl(url);
-  }, [id])
+  }, [id]);
+
+  const handleDelete =async (id:string) =>{
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this chatbot?");
+      if(!isConfirmed) return;
+    try {
+      const promise = deleteChatbot({variables:{id}});
+      toast.promise(promise, {
+        loading: "Deleting chatbot...",
+        success: "Chatbot deleted successfully",
+        error: "Failed to delete chatbot",
+      });
+      
+    } catch (error) {
+      toast.error("Failed to delete chatbot");
+    }
+  };
+
+  if (loading)
+    return (
+      <div className='mx-auto animate-spin p-10'>
+        <Avatar seed="loading" />
+        <p>Loading...</p>
+      </div>
+    ); return <p>Loading...</p>;
 
     return (
       <div className='px-0 md:p-10'>
@@ -49,7 +83,8 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
         hover:opacity-50">
           <Input value={url} readOnly className="cursor-pointer" />
         </Link>
-        <Button size='sm'
+        <Button 
+        size='sm'
         className="px-3"
         onClick={()=>{
           navigator.clipboard.writeText(url);
@@ -64,13 +99,16 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
       <section className="relartive mt-5 bg-white p-5 md:p-10 rounded-lg">
         <Button variant='destructive' 
         className="absolute-top-2 h-8 w-2"
-        //onClick ={()=> handleDelete(id)}
+        onClick ={()=> handleDelete(id)}
         >
           X
           </Button>
         <div className="flex space-x-4">
           <Avatar seed={chatbotName} />
-          <form onSubmit={handleUpdateChatbot}>
+          <form
+          // onSubmit={handleUpdateChatbot}
+           className="flex flex-1 space-x-2 items-center"
+           >
             <Input 
             value={chatbotName}
             onChange={(e)=> setChatbotName(e.target.value)} 
@@ -78,12 +116,15 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
             className="w-full border-none bg-transparent text-xl font-bold"
             required
             />
-            <Button type="submit" disabled={!chatbotName}>Update</Button>
+            <Button type="submit" disabled={!chatbotName}>
+              Update
+              </Button>
           </form>
         </div>
         <h2 className="text-xl font-bold mt-10">
-          Your chatbot is equipped with the following informations</h2>
-      <div onSubmit={}>
+          Your chatbot is equipped with the following informations
+          </h2>
+      <div>
         <form >
          <Input 
          type="text"
@@ -94,7 +135,8 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
 
         <ul className="flex flex-wrap-reverse gap-5">
           {
-            data?.chatbots.chatbot_characteristics.map((characteristic) =>
+            data?.chatbots?.chatbot_characteristics?.map
+            ((characteristic) =>
                (
              <Characteristic 
              key={characteristic.id} 
