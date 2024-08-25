@@ -13,9 +13,9 @@ import { Copy } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
-import { use, useEffect, useState } from "react";
+import React, { FormEvent, use, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { ADD_CHARACTERISTIC, DELETE_CHATBOT } from "@/graphql/mutations/mutations";
+import { ADD_CHARACTERISTIC, DELETE_CHATBOT, UPDATE_CHATBOT } from "@/graphql/mutations/mutations";
 
 function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [url, setUrl] = useState<string>('');
@@ -31,6 +31,10 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [addCharacteristic] = useMutation(ADD_CHARACTERISTIC, {
     refetchQueries: ["GetChatbotById"],
     awaitRefetchQueries: true,
+  });
+
+  const [updateChatbot] = useMutation(UPDATE_CHATBOT, {
+    refetchQueries: ["GetChatbotById"],
   });
 
 
@@ -71,6 +75,28 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
       console.log(error);
     }
   }
+
+  const handleUpdateChatbot = async (e:FormEvent<HTMLFormElement>) =>{
+    e.preventDefault();
+
+    try {
+      const promise = updateChatbot({
+        variables: {
+          id,
+          name: chatbotName,
+        },
+      });
+      toast.promise(promise, {
+        loading: "Updating chatbot...",
+        success: "Chatbot updated successfully",
+        error: "Failed to update chatbot",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
 
   const handleDelete =async (id:string) =>{
     const isConfirmed = window.confirm(
@@ -136,7 +162,7 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
         <div className="flex space-x-4">
           <Avatar seed={chatbotName} />
           <form
-          // onSubmit={handleUpdateChatbot}
+           onSubmit={handleUpdateChatbot}
            className="flex flex-1 space-x-2 items-center"
            >
             <Input 

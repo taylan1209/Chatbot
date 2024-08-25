@@ -30,7 +30,7 @@ function Characteristic({characteristic,}:
     }
 
   return (
-    <li className='relative'>
+    <li key={characteristic.id} className='relative'>
       {characteristic.content}
       <OctagonX className='w-6 h-6 text-white fill-red-500 
       absolute top-1 right-1 cursor-pointer hover:opacity-50 ' 
