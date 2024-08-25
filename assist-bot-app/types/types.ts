@@ -1,5 +1,6 @@
 export interface Chatbot {
     id:number;
+    name:string;
     clerk_user_id:string;
     created_at:string;
     chatbot_characteristics: ChatbotCharacteristic[];
@@ -38,4 +39,11 @@ export interface GetChatbotByIdResponse{
 }
 export interface GetChatbotByIdVariables{
     id:string
+}
+
+export interface GetChatbotsByUserData{
+    chatbotsByUser: Chatbot[];
+}
+export interface GetChatbotsByUserDataVariables{
+    clerk_user_id:string;
 }
