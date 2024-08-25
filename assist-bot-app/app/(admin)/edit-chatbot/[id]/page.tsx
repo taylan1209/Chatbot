@@ -10,11 +10,12 @@ import { GET_CHATBOT_BY_ID } from "@/graphql/queries/queries";
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "@/types/types";
 import { useMutation, useQuery } from "@apollo/client";
 import { Copy } from "lucide-react";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import { use, useEffect, useState } from "react";
 import { toast } from "sonner";
+import { ADD_CHARACTERISTIC, DELETE_CHATBOT } from "@/graphql/mutations/mutations";
 
 function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [url, setUrl] = useState<string>('');
@@ -24,6 +25,11 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
   const[deleteChatbot] = useMutation(DELETE_CHATBOT, {
     refetchQueries: ["GetChatbotById"],
     //deleting
+    awaitRefetchQueries: true,
+  });
+
+  const [addCharacteristic] = useMutation(ADD_CHARACTERISTIC, {
+    refetchQueries: ["GetChatbotById"],
     awaitRefetchQueries: true,
   });
 
@@ -45,6 +51,26 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
 
     setUrl(url);
   }, [id]);
+
+  const handleAddCharacteristic = async (content:string) => {
+    try {
+      const promise = addCharacteristic({
+        variables: {
+          chatbotId: Number(id),
+          content,
+        },
+      });
+
+      toast.promise(promise, {
+        loading: "Adding characteristic...",
+        success: "Characteristic added successfully",
+        error: "Failed to add characteristic",
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleDelete =async (id:string) =>{
     const isConfirmed = window.confirm(
@@ -128,8 +154,15 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
         <h2 className="text-xl font-bold mt-10">
           Your chatbot is equipped with the following informations
           </h2>
-      <div>
-        <form >
+      <div className="bg-gray-200 p-5 md:p-5 rounded-md mt-5">
+        <form onSubmit={(e)=>{
+          e.preventDefault();
+          handleAddCharacteristic(newCharacteristic);
+          setNewCharacteristic('');
+        }}
+        className="flex space-x-2 mb-5"
+        
+        >
          <Input 
          type="text"
          placeholder="Example: If user asks for .."
