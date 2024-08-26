@@ -46,7 +46,7 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
 
   useEffect(() => {
     if (data) {
-      setChatbotName(data.chatbots.name);
+      setChatbotName(data.chatbot.name);
     }
   }, [data]);
 
@@ -124,7 +124,7 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
     ); 
 
     if (error) return <p>Error: {error.message}</p>;
-    if (!data?.chatbots) return redirect("/view-chatbots")
+    if (!data?.chatbot) return redirect("/view-chatbots")
 
     return (
       <div className='px-0 md:p-10'>
@@ -198,7 +198,7 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
 
         <ul className="flex flex-wrap-reverse gap-5">
           {
-            data?.chatbots?.chatbot_characteristics?.map
+            data?.chatbot?.chatbot_characteristics?.map
             ((characteristic) =>
                (
              <Characteristic 

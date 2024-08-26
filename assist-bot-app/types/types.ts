@@ -35,10 +35,10 @@ export interface Message {
     sender:"ai" | "user";
 }
 export interface GetChatbotByIdResponse{
-    chatbots: Chatbot;
+    chatbot: Chatbot;
 }
 export interface GetChatbotByIdVariables{
-    id:string
+    id:string;
 }
 
 export interface GetChatbotsByUserData{
