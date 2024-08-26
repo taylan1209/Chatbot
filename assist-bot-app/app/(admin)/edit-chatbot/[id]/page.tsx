@@ -31,6 +31,7 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
   const [addCharacteristic] = useMutation(ADD_CHARACTERISTIC, {
     refetchQueries: ["GetChatbotById"],
     awaitRefetchQueries: true,
+    
   });
 
   const [updateChatbot] = useMutation(UPDATE_CHATBOT, {
@@ -60,7 +61,8 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
     try {
       const promise = addCharacteristic({
         variables: {
-          chatbotId: Number(id),
+          created_at: new Date().toISOString(),
+          chatbot_id: Number(id),
           content,
         },
       });
