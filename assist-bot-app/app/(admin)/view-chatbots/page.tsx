@@ -55,10 +55,10 @@ async function ViewChatbots() {
           <ul>
             {sortedChatbotsByUser.map((chatbot) => (
               <Link key={chatbot.id} href={`/edit-chatbot/${chatbot.id}`}>
-                <li className="mb-4 p-4 border rounded-lg shadow-sm hover:bg-gray-50">
-                  <div className="flex items-center">
+                <li className="relative mb-4 p-4 border rounded-lg shadow-sm hover:bg-gray-50">
+                  <div className="flex items-center space-x-4">
                     <Avatar seed={chatbot.name} />
-                    <h2 className="text-xl font-bold ml-4">{chatbot.name}</h2>
+                    <h2 className="text-xl font-bold ">{chatbot.name}</h2>
                   </div>
                   <p className="absolute top-5 right-5 text-xs text-gray-400">
                     Created: {new Date(chatbot.created_at).toLocaleString()}
