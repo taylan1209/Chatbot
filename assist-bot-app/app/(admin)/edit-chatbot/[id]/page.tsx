@@ -46,7 +46,7 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
 
   useEffect(() => {
     if (data) {
-      setChatbotName(data.chatbot.name);
+      setChatbotName(data.chatbots.name);
     }
   }, [data]);
 
@@ -124,7 +124,7 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
     ); 
 
     if (error) return <p>Error: {error.message}</p>;
-    if (!data?.chatbot) return redirect("/view-chatbots")
+    if (!data?.chatbots) return redirect("/view-chatbots")
 
     return (
       <div className='px-0 md:p-10'>
@@ -177,9 +177,15 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
               </Button>
           </form>
         </div>
+
         <h2 className="text-xl font-bold mt-10">
-          Your chatbot is equipped with the following informations
+          AI Information
           </h2>
+          <p>
+          Your chatbot is equipped with the following informations
+          </p>
+
+
       <div className="bg-gray-200 p-5 md:p-5 rounded-md mt-5">
         <form onSubmit={(e)=>{
           e.preventDefault();
@@ -187,18 +193,20 @@ function EditChatbot({params:{id}}: {params:{id:string}}) {
           setNewCharacteristic('');
         }}
         className="flex space-x-2 mb-5"
-        
         >
          <Input 
          type="text"
          placeholder="Example: If user asks for .."
          value= {newCharacteristic}
-         onChange = {(e)=> setNewCharacteristic(e.target.value)} />
+         onChange = {(e)=> setNewCharacteristic(e.target.value)} 
+         />
+         <Button type="submit" disabled={!newCharacteristic}>
+          Add</Button>
         </form>
 
         <ul className="flex flex-wrap-reverse gap-5">
           {
-            data?.chatbot?.chatbot_characteristics?.map
+            data?.chatbots?.chatbot_characteristics?.map
             ((characteristic) =>
                (
              <Characteristic 
