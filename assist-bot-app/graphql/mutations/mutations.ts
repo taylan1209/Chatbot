@@ -27,9 +27,9 @@ export const REMOVE_CHARACTERISTIC = gql`
 `;
 
     export const ADD_CHARACTERISTIC = gql`
-    mutation AddCharacteristic($chatbotId: Int!, $content: String!, $created_at: DateTime!) {
+    mutation AddCharacteristic($chatbot_id: Int!, $content: String!, $created_at: DateTime!) {
         insertChatbot_characteristics(
-            chatbot_id: $chatbotId, 
+            chatbot_id: $chatbot_id, 
             content: $content, 
             created_at: $created_at) {
             id
