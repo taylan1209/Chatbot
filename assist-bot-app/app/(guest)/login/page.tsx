@@ -9,11 +9,11 @@ function LoginPage() {
         <div className="flex flex-col items-center 
         justify-center space-y-5 text-white">
             <div className="rounded-full bg-white p-5">
-                <Avatar seed="Supoort Agent" className="h-60mw-60" />
+                <Avatar seed="Chatbot" className="h-60mw-60" />
             </div>
             <div className="text-center">
-                <h1 className="text-4xl">Assistly</h1>
-                <h2 className="text-base font-light"> Tanıtma AI</h2>
+                <h1 className="text-4xl">TANITMA CHATBOT</h1>
+                
                 <h3 className="my-5 font-bold"> Sign in to get started</h3>
             </div>
         </div>
