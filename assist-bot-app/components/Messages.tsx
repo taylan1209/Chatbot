@@ -2,7 +2,7 @@
 
 import { Message } from '@/types/types';
 import { usePathname } from 'next/navigation';
-import React from 'react'
+import React, { use, useEffect, useRef } from 'react'
 import Avatar from './Avatar';
 import { UserCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -13,8 +13,14 @@ function Messages({messages, chatbotName}:{
     chatbotName: string;
 }) {
     const path = usePathname();
-
     const isReviewsPage = path.includes("review-sessions");
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages]);
 
   return (
     <div className='flex-1 flex flex-col overflow-y-auto space-y-10 py-10 px-5 bg-white rounded-lg'>
@@ -97,6 +103,9 @@ function Messages({messages, chatbotName}:{
     </div>
   );
 })}
+
+<div />
+
 </div>
 );
 }
