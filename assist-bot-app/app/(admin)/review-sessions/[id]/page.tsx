@@ -26,7 +26,14 @@ async function ReviewSession ({params: {id}}:{params: {id: string}}) {
 
 
   return (
-    <div>ReviewSession</div>
+    <div>
+      <h1 className="text-xl lg:text-3xl font-semibold">
+        Session Review
+      </h1>
+      <p className="font-light text-xs text-gray-400 mt-2">
+      Started at {new Date(created_at).toLocaleString()}
+      </p>
+    </div>
   )
 }
 
