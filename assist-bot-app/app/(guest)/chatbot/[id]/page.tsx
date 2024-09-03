@@ -48,9 +48,18 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
           className="col-span-3"
            />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
+
+           <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="username" className="text-right">
+            Email
+          </Label>
+          <Input id="username" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} 
+          className="col-span-3"
+           />
           </div>
-          </div> 
+          </div>
           </form>
         </DialogContent>
       </Dialog>
