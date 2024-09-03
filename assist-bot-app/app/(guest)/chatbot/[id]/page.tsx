@@ -1,9 +1,11 @@
 'use client'
 
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -22,11 +24,22 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
 
+  const handleInformationSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const chatId= await startNewChat(name, email, Number(id));
+
+    setChatId(chatId);
+    setLoading(false);
+    setIsOpen(false);
+  };
+
   return (
-    <div>
+    <div className="w-full flex bg-gray-100">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-[425px]">
-          <form >
+          <form onSubmit={handleInformationSubmit} >
 
           <DialogHeader>
             <DialogTitle>
@@ -37,7 +50,7 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
             </DialogDescription>
           </DialogHeader>
           
-          <div>
+          <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="name" className="text-right">
             Name
@@ -56,10 +69,15 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
           <Input id="username" 
           value={email}
           onChange={(e) => setEmail(e.target.value)} 
-          className="col-span-3"
+          className="col-span-3" 
            />
           </div>
           </div>
+          <DialogFooter>
+            <Button type="submit" disabled={!name||!email||loading}>
+              {!loading? "Continue" : "Loading..."} 
+            </Button> 
+          </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
