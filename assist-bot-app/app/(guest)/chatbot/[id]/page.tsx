@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label"; // Import the Label component
+import startNewChat from "@/lib/startNewChat";
 import { Message } from "@/types/types";
 import { useState } from "react"
 
@@ -81,6 +82,11 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
           </form>
         </DialogContent>
       </Dialog>
+      <div>
+        <div>
+          
+        </div>
+      </div>
     </div>
   )
 }

@@ -29,8 +29,22 @@ async function startNewChat(
     });
     const chatSessionId = chatSessionResult.data.insertChat_sessions.id;
 
+    // 3. Insert a welcome message
+     await client.mutate({
+        mutation: INSERT_MESSAGE,
+        variables: {
+            chat_session_id: chatSessionId,
+            content: "Welcome to the Tanıtma chat! Ask me and I can give you any information about our travel destinations",
+            sender: "ai",
+        },
+    });
+    console.log ("New chat session started successfully");
+    return chatSessionId;
+
     } catch (error) {
         console.log(error)
     }
 }
 
+
+export default startNewChat;
