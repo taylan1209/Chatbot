@@ -73,7 +73,7 @@ export const GET_CHATBOT_BY_ID = gql`
 
 export const GET_CHAT_SESSION_MESSAGES = gql`
     query GetChatSessionMessages($id: Int!) {
-        chat_session_messages(id: $id) {
+        chat_sessions(id: $id) {
             id
             created_at
             messages {
@@ -97,9 +97,12 @@ export const GET_MESSAGES_BY_CHAT_SESSION_ID = gql`
     query GetMessagesByChatSessionId($chat_session_id: Int!) {
         chat_sessions(id: $chat_session_id) {
             id
-            content
-            created_at
-            sender
+            messages {
+                id
+                content
+                created_at
+                sender
+            }
         }
     }
 `;
