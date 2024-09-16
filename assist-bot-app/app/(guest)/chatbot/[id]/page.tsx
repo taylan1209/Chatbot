@@ -118,6 +118,7 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
       chat_session_id: chatId,
       sender:"ai"
     }
+    
     }
 
   }
