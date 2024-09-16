@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { useFormField } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, useFormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label"; // Import the Label component
 import { GET_CHATBOT_BY_ID, GET_MESSAGES_BY_CHAT_SESSION_ID } from "@/graphql/queries/queries";
@@ -144,6 +144,33 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
         <Messages 
         messages = {messages}
         chatbotName = {chatBotData?.chatbots.name!}/>
+
+        <Form {...form}>
+          <form className="flex items-start sticky bottom-0 z-50 space-x-4 drop-shadow-lg p-4 bg-gray-100 rounded-md">
+            <FormField
+            control={form.control}
+            name="message"
+            render={({field}) => (
+              <FormItem className="flex-1">
+                <FormLabel hidden>Message</FormLabel>
+                <FormControl>
+                  <Input 
+                  placeholder="Type a message" 
+                  {...field} 
+                  className="p-8"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+            />
+            <Button type="submit" className="h-full" >
+              Send
+            </Button>
+          </form>
+        </Form>
+
+
       </div>
     </div>
   )
