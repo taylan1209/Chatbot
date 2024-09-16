@@ -100,6 +100,26 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
     if(!message.trim()) {
       return; // Do not submit if the message is empty
     }
+
+    //Optimistically update theUI with user's message
+    const userMessage:Message = {
+      id: Date.now(),
+      content: message,
+      created_at: new Date().toISOString(),
+      chat_session_id: chatId,
+      sender:"user"
+    };
+
+    // ... And show loading state for AI response
+    const loadingMessage:Message = {
+      id: Date.now() + 1,
+      content: "Thinking",
+      created_at: new Date().toISOString(),
+      chat_session_id: chatId,
+      sender:"ai"
+    }
+    }
+
   }
 
   return (
