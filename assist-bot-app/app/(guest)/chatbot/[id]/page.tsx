@@ -140,6 +140,8 @@ function ChatbotPage({params: {id}}:{params:{id:string}}) {
         });
 
         const result =await response.json();
+
+        //Update the loading message for the AI with the actual response
        setMessages((prevMessages) =>
         prevMessages.map((msg) =>
           msg.id === loadingMessage.id
